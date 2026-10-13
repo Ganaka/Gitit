@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Multi-Profile Dashboard Pro</title>
+    <link rel="stylesheet" href="./_res/css/style.css">
+</head>
+<body>
+
+<div class="dashboard">
+    <!-- Left Sidebar: Profile Selector with Search -->
+    <div class="sidebar">
+        <h1>Git Profiles</h1>
+        <input type="text" id="profileSearch" placeholder="🔍 Filter profiles..." class="search-bar">
+        <div class="profile-list" id="profileContainer">
+            <!-- Rendered Profile Cards inject dynamically -->
+        </div>
+        <button class="btn btn-success btn-full" onclick="createNewProfile()">➕ Add New Profile</button>
+    </div>
+
+    <!-- Right Workspace: Profile Customization & Dynamic Output Engine -->
+    <div class="main-workspace">
+        <div id="activeWorkspace" style="display: none;">
+            <div class="card">
+                <div class="grid-3">
+                    <div>
+                        <label for="profileAlias">SSH Host Suffix / Alias</label>
+                        <input type="text" id="profileAlias" placeholder="e.g. personal-acc">
+                    </div>
+                    <div>
+                        <label for="gitName">Git Author Name</label>
+                        <input type="text" id="gitName">
+                    </div>
+                    <div>
+                        <label for="gitEmail">Git Author Email</label>
+                        <input type="text" id="gitEmail">
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <label for="repoPath">Active Target Repository Context</label>
+                        <input type="text" id="repoPath" placeholder="Username/Repository">
+                    </div>
+                    <div>
+                        <label>Connection Protocol Type</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="protocol" value="ssh" checked> SSH Custom Host Link
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="protocol" value="https"> Base HTTPS Link
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-1" style="margin-top: 16px;">
+                    <label for="sshPublicKey">SSH Public Key Reference (Optional)</label>
+                    <textarea id="sshPublicKey" rows="2" placeholder="Paste your id_ed25519_xxx.pub here for quick reference..."></textarea>
+                </div>
+
+                <div class="action-bar">
+                    <button class="btn btn-danger" onclick="wipeAllData()">⚠️ Master Reset Cache</button>
+                    <button class="btn btn-accent" onclick="saveActiveStateToStorage()">💾 Save Account Modifications</button>
+                </div>
+            </div>
+
+            <!-- LIVE EXECUTOR & TERMINAL PANEL -->
+            <div class="card terminal-card">
+                <div class="output-header">
+                    <div class="output-title">⚡ LIVE NATIVE BASH EXECUTION</div>
+                    <div>
+                        <input type="text" id="localRepoPath" placeholder="Absolute local folder path (e.g. C:/Projects/MyApp)" style="width: 320px; display: inline-block; margin-right: 10px;">
+                        <button class="btn btn-danger btn-sm" onclick="executeGitSwitch()">Apply to Local Repo</button>
+                    </div>
+                </div>
+                <div class="terminal-view">
+                    <code id="terminalConsole">> Waiting for local macro execution orders...</code>
+                </div>
+            </div>
+
+            <!-- Operational Code Generator Views -->
+            <div style="margin-top: 24px;">
+                <div class="output-header">
+                    <div class="output-title">OPTION A: MANUAL TERMINAL BLOCK COPIER</div>
+                    <button class="btn btn-success btn-sm" onclick="copyInlineBlock()">Copy Snippet</button>
+                </div>
+                <pre><code id="outputBlock"></code></pre>
+            </div>
+        </div>
+
+        <div id="emptyNotice" class="empty-workspace-notice">
+            Select a workspace profile from the sidebar or click "Add New Profile" to configure active remote engines.
+        </div>
+    </div>
+</div>
+
+<script src="./_res/js/app.js"></script>
+</body>
+</html>
